@@ -1,0 +1,12 @@
+#+title: Category Theory
+#+author: Bailey Wickham
+#+export_file_name: index
+#+setupfile: comfy_inline.theme
+
+* Introduction
+  This is designed to be my notes on my senior project. My senior project is focused on category theory. 
+
+
+* Mac Lean
+** Chapter 1  
+- Arrow categories vs Set categories? What are the meaningful differences here? When will I need to define which I am working in? Small and large categories still apply here, correct?
