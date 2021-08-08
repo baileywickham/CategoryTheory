@@ -4,7 +4,7 @@
 #+setupfile: comfy_inline.theme
 
 * Introduction
-  This is designed to be my notes on my senior project. My senior project is focused on category theory. 
+This document is part of my notes on my category theory senior project. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
 
 
 * Mac Lean
