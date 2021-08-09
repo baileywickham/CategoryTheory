@@ -4,7 +4,7 @@
 #+setupfile: comfy_inline.theme
 
 * Introduction
-This document is part of my notes on my category theory senior project. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
+This document is part of my notes on my category theory senior project under [[https://www.mathgenealogy.org/id.php?id=110360][Dr. Robert Easton]]. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
 
 Following a basic introduction to category theory, I'm interested in studying some advanced topic, which topic yet, I don't know. I'm interested in Algebraic Geometry, sheafs, schemes, topoi, stacks etc. I'm also interested in \infty-Catgeories. And perfectoid spaces, but those are mostly unrelated, though I haven't seen a category theoretic perspective on them. 
 
@@ -13,6 +13,7 @@ Following a basic introduction to category theory, I'm interested in studying so
 ** TODO Papers to read, or things to do
 - [[https://homes.cs.washington.edu/~pedrod/papers/mlc00c.pdf][Version Space Algebras]] A paper I came across in my Grad PL course. A VSA is heavily informed by category theoretic definitions, but there were no direct mentions of them. I'll have to look around and see if there is a formalism for it. Otherwise it could be fun to translate the paper into category theoretic
   formalisms. Computational category theory is a funny idea.
+- [[https://www.ams.org/notices/200808/tx080800949p.pdf][What is an \infty-Category]] A what is article by Lurie. I should read through and take notes on this one. 
 
  
 ** Online resources
@@ -26,6 +27,7 @@ This is sort of ordered by interest, but losely
 ** Books
 - [[https://www.maths.ed.ac.uk/~tl/][Leinster]] Tom Leinster has a book on basic category theory which is good, and a book on higher category theory I haven't touched. 
 - [[https://stacks.math.columbia.edu/tag/0011][The Stacks project]] A open source textbook for the theory of stacks
+- [[https://kerodon.net/tag/0001][The Kerodon project]] Ran by Lurie, higher homotopy version of the stacks project. 
 
 
 * Mac Lean
