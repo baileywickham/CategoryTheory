@@ -6,7 +6,13 @@
 * Introduction
 This document is part of my notes on my category theory senior project. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
 
+* Interesting Resources
+[[https://homes.cs.washington.edu/~pedrod/papers/mlc00c.pdf][Version Space Algebras]] A paper I came across in my Grad PL course. A VSA is heavily informed by category theoretic definitions, but there were no direct mentions of them. I'll have to look around and see if there is a formalism for it. Otherwise it could be fun to translate the paper into category theoretic formalisms. Computational category theory is a funny idea.
+
 
 * Mac Lean
 ** Chapter 1  
 - Arrow categories vs Set categories? What are the meaningful differences here? When will I need to define which I am working in? Small and large categories still apply here, correct?
+- Are arrow only categories interesting? Is this the start of the perspective I should be thinking in? 
+- Can a functor from a category to itself be regarded as a subset of the morphisms on that category? I'm thinking of the power set functor, where you don't need to realize the functor definiton to consider the power set. 
+- How does using a Universe or Class get around the same large/small problem with *Cat*? I should be able to answer this based on the textbook. 
