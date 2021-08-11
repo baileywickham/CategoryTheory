@@ -1,2 +1,3 @@
+#+setupfile: ../comfy_inline.theme
 * Chapter 1 Notes 
 Here are my notes
