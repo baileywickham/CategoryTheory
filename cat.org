@@ -37,5 +37,7 @@ This is sort of ordered by interest, but losely
 - Arrow categories vs Set categories? What are the meaningful differences here? When will I need to define which I am working in? Small and large categories still apply here, correct?
 - Are arrow only categories interesting? Is this the start of the perspective I should be thinking in? 
 - Can a functor from a category to itself be regarded as a subset of the morphisms on that category? I'm thinking of the power set functor, where you don't need to realize the functor definiton to consider the power set. 
+  - What about self functors? When is a general morphism a functor. Like the commutator vs center map. Is there a general way to tell when you have a functor? 
 - How does using a Universe or Class get around the same large/small problem with *Cat*? I should be able to answer this based on the textbook. 
+  - *Cat* is the category of small categories. The problem still arrises when considering the category of classes etc. 
 - What is the use of arrow only categories? Are they related to yoneda and hom functors?
