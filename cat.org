@@ -2,6 +2,7 @@
 #+author: Bailey Wickham
 #+export_file_name: index
 #+setupfile: comfy_inline.theme
+https://www.scientificamerican.com/article/infinity-category-theory-offers-a-birds-eye-view-of-mathematics1/
 
 * Introduction
 This document is part of my notes on my category theory senior project under [[https://www.mathgenealogy.org/id.php?id=110360][Dr. Robert Easton]]. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
@@ -32,6 +33,8 @@ This is sort of ordered by interest, but losely
 
 * Mac Lane
 [[file:chapters/chapter1.org][Notes]]
+
+[[file:exercises.md][Sugested exercises]]
 
 ** Chapter 1  
 - Arrow categories vs Set categories? What are the meaningful differences here? When will I need to define which I am working in? Small and large categories still apply here, correct?
