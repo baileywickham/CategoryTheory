@@ -2,7 +2,6 @@
 #+author: Bailey Wickham
 #+export_file_name: index
 #+setupfile: comfy_inline.theme
-https://www.scientificamerican.com/article/infinity-category-theory-offers-a-birds-eye-view-of-mathematics1/
 
 * Introduction
 This document is part of my notes on my category theory senior project under [[https://www.mathgenealogy.org/id.php?id=110360][Dr. Robert Easton]]. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
@@ -12,8 +11,7 @@ Following a basic introduction to category theory, I'm interested in studying so
 
 * Interesting Resources
 ** TODO Papers to read, or things to do
-- [[https://homes.cs.washington.edu/~pedrod/papers/mlc00c.pdf][Version Space Algebras]] A paper I came across in my Grad PL course. A VSA is heavily informed by category theoretic definitions, but there were no direct mentions of them. I'll have to look around and see if there is a formalism for it. Otherwise it could be fun to translate the paper into category theoretic
-  formalisms. Computational category theory is a funny idea.
+- [[https://homes.cs.washington.edu/~pedrod/papers/mlc00c.pdf][Version Space Algebras]]. The basic VSA paper I presented. 
 - [[https://www.ams.org/notices/200808/tx080800949p.pdf][What is an \infty-Category]] A what is article by Lurie. I should read through and take notes on this one. 
 
  
