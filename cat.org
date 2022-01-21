@@ -9,6 +9,12 @@ This document is part of my notes on my category theory senior project under [[h
 Following a basic introduction to category theory, I'm interested in studying some advanced topic, which topic yet, I don't know. I'm interested in Algebraic Geometry, sheafs, schemes, topoi, stacks etc. I'm also interested in \infty-Catgeories. And perfectoid spaces, but those are mostly unrelated, though I haven't seen a category theoretic perspective on them. 
 
 
+
+* Version Space Algebras
+- [[https://homes.cs.washington.edu/~pedrod/papers/mlc00c.pdf][VSA paper]]
+- [[https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.121.5764&rep=rep1&type=pdf][Original version space paper]]
+- [[https://www.brinckerhoff.org/clements/2214-csc530/Files/lwdw-string-vsa-2003.pdf][SMARTedit paper]]
+
 * Interesting Resources
 ** TODO Papers to read, or things to do
 - [[https://homes.cs.washington.edu/~pedrod/papers/mlc00c.pdf][Version Space Algebras]]. The basic VSA paper I presented. 
