@@ -53,30 +53,18 @@ There are four main operations defined on a version space.
 In the second section we defined a version space and a set of operations on it. In this section we will redefine version spaces in categorical terms. 
 
 \begin{definition}[Version Space (Category)]
-Let $A$ and $B$ be small sets. Then a hypothesis space $H \hookrightarrow Hom_{Set}(A, B)$. Let the examples, $D$, be a set such that the following diagram commutes, where $\pi_1$ and $\pi_2$ are the (set) projection maps and $\iota$ is the inclusion map. 
-% https://q.uiver.app/?q=WzAsNCxbMSwwLCJEIl0sWzEsMSwiQVxcdGltZXMgQiJdLFswLDIsIkEiXSxbMiwyLCJCIl0sWzAsMV0sWzAsMiwiXFxwaV8xIiwyLHsiY3VydmUiOjJ9XSxbMSwyLCJcXHBpXzEiXSxbMSwzLCJcXHBpXzIiLDJdLFswLDMsIlxccGlfMiIsMCx7ImN1cnZlIjotMn1dXQ==
+Let $A$ and $B$ be small sets. Then a hypothesis space $H \hookrightarrow Hom_{Set}(A, B)$. Let the examples, $D$, be a set of pairs $\{(a,b) : a \in A, b \in B\}$ $(a,b)$ that project via maps $\pi_A, \pi_B$ into $A$ and $B$ respectively.
+
+A version space is the set $VS_{H,D} = \{f : D \rightarrow \Gamma_f \text{ is injective}\}$, where $\Gamma_f$ is the graph functor: $\Gamma_f = \{(a,b) | b = f(a)\} \subseteq A\times B$. Therefore in $VSA$ we have a commutative diagram where $\pi_D$ is a projection of $VS_{H,D}$ into $D$ in $Set$. If VS is a version set, $\iota$ should be injective. 
+% https://q.uiver.app/?q=WzAsMyxbMCwwLCJWU197SCxEfSJdLFsyLDAsIlNldCJdLFsyLDIsIlNldCJdLFswLDEsIlxccGlfRCIsMV0sWzEsMiwiXFxpb3RhIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMiwiXFxHYW1tYV9IIiwxXV0=
 \[\begin{tikzcd}
-	& D \\
-	& {A\times B} \\
-	A && B
-	\arrow["{\iota}", from=1-2, to=2-2]
-	\arrow["{\pi_1}"', curve={height=12pt}, from=1-2, to=3-1]
-	\arrow["{\pi_1}", from=2-2, to=3-1]
-	\arrow["{\pi_2}"', from=2-2, to=3-3]
-	\arrow["{\pi_2}", curve={height=-12pt}, from=1-2, to=3-3]
+	{VS} && Set \\
+	\\
+	&& Set
+	\arrow["{\pi_D}"{description}, from=1-1, to=1-3]
+	\arrow["\iota"{description}, dashed, from=1-3, to=3-3]
+	\arrow["{\Gamma_H}"{description}, from=1-1, to=3-3]
 \end{tikzcd}\]
-A Version Space is the image of the map $F_{D}$: %:Hom(A,B) \rightarrow VS_{H,D}$ 
-% https://q.uiver.app/?q=WzAsMixbMCwwLCJIb20oQSxCKSJdLFsxLDAsIlZTX3tILER9Il0sWzAsMSwiRl9EIl1d
-\[\begin{tikzcd}
-	{H} & {VS_{H,D}}
-	\arrow["{F_D}", from=1-1, to=1-2]
-\end{tikzcd}\]
-\[ F_D = \begin{cases} 
-      f & f(i) = o, \forall (i, o) \in D \\
-      \emptyset & otherwise
-   \end{cases}
-\]
-where $D$ "filters" hypothesis that are consistent with the examples.
 \end{definition}
 
 This construction exactly mirrors the set theoretic construction given by [] et al. Union and Intersection are defined almost identically to the set theory version. [] these are derived directly from ZFC? maybe? 
@@ -87,8 +75,12 @@ $VS_{H_1, D} \bigcup VS_{H_2, D}$ = $F_D (H_1 \bigcup H_2)$
 
 
 \begin{definition}[Category of VSAs]
-Let \textbf{VSA} be the category of version spaces. We define the category of all version spaces. Objects in our category are of the form $VS_{H,D}$, over any $H$ and $D$. A morphism assigns $VS_{H_1, D_1} \rightarrow VS_{H_2, D_2}$ if and only if $H_1 \subseteq H_2$.
+Let \textbf{VSA} be the category of version spaces. We define the category of all version spaces. 
+
+Objects in our category are of the form $VS_{H,D}$, over any $H$ and $D$. A morphism assigns $VS_{H_1, D_1} \rightarrow VS_{H_2, D_2}$ if and only if $H_1 \subseteq H_2$.
 \end{definition}
+Define $\Gamma_H = \{\Gamma_f : f \in H\}$
+$\Gamma_f = \{(a,b) | b = f(a)\} \subseteq A\times B$. We define our examples, $D$, as $D\subseteq \{\Gamma_f | \forall f \in H\}$
 
 \begin{proof}
 Associativity of morphisms follows from associativity of the inclusion map. $H \subseteq H$, so there exists an identity morphism for every object. 
