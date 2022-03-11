@@ -4,6 +4,8 @@
 #+setupfile: comfy_inline.theme
 
 * Introduction
+[[https://github.com/baileywickham/CategoryTheory/blob/main/VSA/main.pdf][Senior Project paper]]
+
 This document is part of my notes on my category theory senior project under [[https://www.mathgenealogy.org/id.php?id=110360][Dr. Robert Easton]]. The document is written in org hosted on github [[https://github.com/baileywickham/CategoryTheory][here]].
 
 Following a basic introduction to category theory, I'm interested in studying some advanced topic, which topic yet, I don't know. I'm interested in Algebraic Geometry, sheafs, schemes, topoi, stacks etc. I'm also interested in \infty-Catgeories. And perfectoid spaces, but those are mostly unrelated, though I haven't seen a category theoretic perspective on them. 
