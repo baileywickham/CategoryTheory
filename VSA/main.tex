@@ -258,12 +258,12 @@ Define
 	\arrow[shorten <=10pt, shorten >=10pt, Rightarrow, from=1, to=0]
 \end{tikzcd}\]
 \end{definition}
-Note that $hom(\cdot, \cdot)$ is actually a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$. The problem with this definiton is that it does not preserve the information of $A$, and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2, $H$ must map into $hom(A,B)$ via the inclusion map. Studying arrows other than the inclusion map is worth further work. 
+Note that $hom(\cdot, \cdot)$ is actually a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$. The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2, $H$ must map into $hom(A,B)$ via the inclusion map. Studying arrows other than the inclusion map is worth further work. 
 
 The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom$ function includes a notion of arrows between objects, these arrows will come to represent version space transforms while still preserving the hypothesis spaces as objects. 
 
 \subsubsection{Comma Category}
-To define $H$ we need the $hom$ functor as well as a specific comma category. Using $I$ as the inclusion functor, we can construct a comma category as such: 
+To define the hypothesis space we need the $hom$ functor as well as a specific comma category. Using $I$ as the inclusion functor, we can construct a comma category as such: 
 
 % https://q.uiver.app/?q=WzAsMyxbMCwwLCJTZXQgXFx0aW1lcyBTZXRee09wfSJdLFsyLDAsIlNldCJdLFs0LDAsIlNldCJdLFswLDEsImhvbShcXGNkb3QsIFxcY2RvdCkiXSxbMiwxLCJJIiwyXV0=
 \[\begin{tikzcd}
@@ -285,16 +285,15 @@ To define $H$ we need the $hom$ functor as well as a specific comma category. Us
 	\arrow[shorten <=18pt, shorten >=18pt, Rightarrow, 2tail reversed, from=0, to=1]
 	\arrow[shorten <=18pt, shorten >=18pt, Leftarrow, 2tail reversed, from=0, to=1]
 \end{tikzcd}\]
-where $\psi$ is the induced arrow from one hypothesis space to another. Therefore we can define the hypothesis space $H$ as an object in the comma category defined above, giving us $Hom(A,B)$ while preserving the information $A$ and $B$.
-
-
-
-
+where $\psi$ is the induced arrow from one hypothesis space to another. Therefore we can define the hypothesis space as an object in the comma category defined above, giving us $Hom(A,B)$ while preserving the information of $A$ and $B$.
 
 \subsection{Examples}
 Next is the examples. The examples are pairs of the form $(i,o) \in D$. Examples are used to check the consistency of a function, or whether for $f\in H$, $f(i) = o$. One of the difficulties in translating version space algebras to category theory is the notion of "filtering" or checking the consistency of each function in $H$.  
 
-We define our examples as partial functions defined on some $A' \subseteq A$
+We can define our examples as such: Given sets $A, B$ and a set $A'\subseteq A$, a example is a partial function $d: A' \rightarrow B$. Our examples are $D = \{d : d: A'\rightarrow B\}$. An example $d$ is consistent with a hypothesis $((A,B), H, i)$ if for all $f \in H$, $f|_{A'} = d$. 
+
+A version space algebra $VSA_{H,D}$ is the subset of functions $f\in H$ that are consistent with the examples $D$.
+
 
 
 \begin{thebibliography}{9}
