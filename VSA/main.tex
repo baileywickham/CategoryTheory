@@ -240,14 +240,23 @@ We need to redefine xxx major definitions in category theoretic terms:
     \item VSA, the version space
     \item Algebraic operations on VSAs
 \end{itemize}
-\subsection{Hypothesis spaces}
-We begin by defining the hypothesis space. Recall the previous definition of $H$: $H\subseteq \{f: f: A \rightarrow B\}$.
-Recall that eventually we want a notion of equivalent hypothesis spaces through the version space transform. Knowing this, we want additional structure beyond just the set maps. 
+\subsection{Working example}
+In this section, it would be helpful to have a working example to discuss as we update our definitions. If one were trying to generate helpful predictions for a text editor, one would need a set of operations to predict. For example, one may want to predict actions such as delete text starting with a prefix, find the next instance of a word, move to the third row, or insert this text. We will use the example of a function which is used to represent moving between rows as our working example. 
 
+We want the version space \textbf{Row} to represent jumping between rows in a text document. Initially our version space is going to contain all possible ways to jump between rows, but after training, it will represent only those jumps which have been completed when editing the document. 
+
+Let $H = \{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. This represents all possible jumps between rows, where the starting row is the domain and the ending row is the codomain. Initially this starts with all possible jumps, but once an example is added, it collapses to functions which contain that jump, i.e. $f(1) = 5$, or a jump from the first line of the document to the fifth. Note that this is just one version space and a complete example would have many version spaces joined together, this allows for more than just one jump. 
+
+
+\subsection{Hypothesis spaces}
+We begin by defining the hypothesis space in categorical terms. Recall the previous definition of $H$: $H\subseteq \{f: f: A \rightarrow B\}$.
+By redefining the hypothesis space in categorical terms, we can define a version space transform as an arrow in a category instead of a separate set. 
+
+The first step to defining the hypothesis space is defining the $hom(\cdot, \cdot)$ functor, which is used to model the functions of a hypothesis space. The $hom$ functor is not enough alone though, as it does not preserve $A$ and $B$. To do this, we will define $H$ first then move the construction of $H$ into a comma category.
 \begin{definition}
-Define 
+Define the $hom$ functor $hom(\cdot,\cdot)$:
 \begin{gather*}
-    hom(\cdot,\cdot):Set \times Set^{Op} \rightarrow Set \\
+    hom(\cdot,\cdot):Set^{Op} \times Set \rightarrow Set \\
     (A,B) \rightarrow Hom(A,B) \\
 \end{gather*}
 \[\begin{tikzcd}
@@ -258,16 +267,19 @@ Define
 	\arrow[shorten <=10pt, shorten >=10pt, Rightarrow, from=1, to=0]
 \end{tikzcd}\]
 \end{definition}
-Note that $hom(\cdot, \cdot)$ is actually a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$. The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2, $H$ must map into $hom(A,B)$ via the inclusion map. Studying arrows other than the inclusion map is worth further work. 
+Notice that $hom(\cdot, \cdot)$ is a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$, the restriction to monic is necessary to preserve the domain and codomain. The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2, $H$ must map into $hom(A,B)$ via the inclusion map (a monic arrow). Studying arrows other than the inclusion map is worth further work. 
 
-The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom$ function includes a notion of arrows between objects, these arrows will come to represent version space transforms while still preserving the hypothesis spaces as objects. 
+The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom$ function includes a notion of arrows between objects, these arrows will come to represent version space transforms.
+
+\subsubsection{Working example}
+In our working example, $H=\{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. We can redefine this as $I: H\rightarrow hom(\mathbb{Z},\mathbb{Z})$ under the inclusion map $I$. $H$ is an object in this category of the form $Hom(\mathbb{Z},\mathbb{Z})$.
 
 \subsubsection{Comma Category}
 To define the hypothesis space we need the $hom$ functor as well as a specific comma category. Using $I$ as the inclusion functor, we can construct a comma category as such: 
 
 % https://q.uiver.app/?q=WzAsMyxbMCwwLCJTZXQgXFx0aW1lcyBTZXRee09wfSJdLFsyLDAsIlNldCJdLFs0LDAsIlNldCJdLFswLDEsImhvbShcXGNkb3QsIFxcY2RvdCkiXSxbMiwxLCJJIiwyXV0=
 \[\begin{tikzcd}
-	{Set \times Set^{Op}} && Set && Set
+	{Set^{Op} \times Set} && Set && Set
 	\arrow["{hom(\cdot, \cdot)}", from=1-1, to=1-3]
 	\arrow["I"', from=1-5, to=1-3]
 \end{tikzcd}\]
@@ -282,18 +294,27 @@ To define the hypothesis space we need the $hom$ functor as well as a specific c
 	\arrow[""{name=0, anchor=center, inner sep=0}, from=1-1, to=2-1]
 	\arrow[""{name=1, anchor=center, inner sep=0}, from=1-3, to=2-3]
 	\arrow["\psi", from=1-4, to=2-4]
-	\arrow[shorten <=18pt, shorten >=18pt, Rightarrow, 2tail reversed, from=0, to=1]
-	\arrow[shorten <=18pt, shorten >=18pt, Leftarrow, 2tail reversed, from=0, to=1]
+	\arrow[shorten <=18pt, shorten >=18pt, Rightarrow, from=0, to=1]
 \end{tikzcd}\]
 where $\psi$ is the induced arrow from one hypothesis space to another. Therefore we can define the hypothesis space as an object in the comma category defined above, giving us $Hom(A,B)$ while preserving the information of $A$ and $B$.
 
-\subsection{Examples}
+\subsubsection{Working example}
+We previously defined $H$, now we expand $H$ to sit inside a comma category. The comma category for the \textbf{Row} version space has objects: $((\mathbb{Z}, \mathbb{Z}), H, \iota)$ where $H$ is an object in the image of $hom(\mathbb{Z},\mathbb{Z})$ and $\iota$ is the inclusion map. 
+
+While the notation here may be cumbersome, the essential information is the hypothesis, and the domain and codomain of them.  In this example, the essential information we care about is that $H \in Hom(\mathbb{Z}, \mathbb{Z})$, and that the domain and codomain of the $Hom$ set are preserved.  
+
+\subsection{The examples}
 Next is the examples. The examples are pairs of the form $(i,o) \in D$. Examples are used to check the consistency of a function, or whether for $f\in H$, $f(i) = o$. One of the difficulties in translating version space algebras to category theory is the notion of "filtering" or checking the consistency of each function in $H$.  
 
-We can define our examples as such: Given sets $A, B$ and a set $A'\subseteq A$, a example is a partial function $d: A' \rightarrow B$. Our examples are $D = \{d : d: A'\rightarrow B\}$. An example $d$ is consistent with a hypothesis $((A,B), H, i)$ if for all $f \in H$, $f|_{A'} = d$. 
+We can define our examples as such: Given sets $A, B$ and a set $A'\subseteq A$, an example is a partial function $d: A' \rightarrow B$. Our examples are $D = \{d : d: A'\rightarrow B\}$. An example $d$ is consistent with a hypothesis $((A,B), H, i)$ if for all $f \in H$, $f|_{A'} = d$. A version set consists of all hypothesis consistent with the examples.
 
-A version space algebra $VSA_{H,D}$ is the subset of functions $f\in H$ that are consistent with the examples $D$.
+\subsubsection{Working example}
+In our example of \textbf{Row}, examples are supposed to capture the information of jumping from one row to another. If we were to jump from the first row to the fifth, this would be the pair $(1,5)\in D$. Any function in $H$ that sends $1$ to $5$ would be consistent with this example, and remain in the version set. 
 
+For example, the function $f(x) = x + 4$ would be an element of our version space, and correspond to the action of "move down four lines" in the text editor, a reasonable prediction. 
+
+\subsection{Version spaces}
+A version space is the set of hypothesis which are consistent with the current set of examples. Prof Easton, not sure how to define the VSA here? We could go with "the set of hyp. consistent with the examples, but that isn't very categorical. I'm thinking we could use the right side of the comma category we defined since it's currently the identity map (pretty much unused), but I'm not sure what that functor would look like? It would have to map into objects of the form $Hom(A,B)$... I think there is something there but I'm not sure yet. I think the set on the right would probably be $D$, the examples, so all that's left is finding a functor to map into $Set$ which assigns $D$ to $Hom(A,B)$
 
 
 \begin{thebibliography}{9}
