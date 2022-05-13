@@ -32,13 +32,27 @@ We give a category theoretic definition of version space algebras and their oper
 \end{abstract}
 
 \section{Introduction}
-Version Space Algebras are useful as a framework for machine learning in Computer Science, however their associated definitions are limited by this applied context. Many of the constructions can be generalized to be category theoretic. 
-                    
-Version spaces were first developed as a framework for machine learning in the 80s \cite{original}. In recent years machine learning has taken a differnt approach, yet there is still some recent work on version spaces.
+Version spaces were first developed as a framework for machine learning in the 80s \cite{original}. In recent years machine learning has taken a different approach, yet there is still some recent work on version spaces.
 
-Version space algebras provide a set of hypotheses and a set of examples. The example set is used to produce more relevant hypotheses based on updated information. In an applied context these are ranked by an ordering and then used to generate predictions. Due to their development in applied machine learning, the definitions are based entirely in set theory, however these constructs can be translated into a category. 
+Version Space Algebras are useful as a framework for machine learning in Computer Science, however their associated definitions are limited by this applied context. Many of the constructions can be generalized to be category theoretic. 
+
+Similar to current tensor based methods, version spaces provide a space of all possible functions and examples which constrain those functions use usable predictions. The set of all possible functions is called the hypothesis space, and a single function is called a hypothesis. These are used to generate predictions, each provide a hypothesis of what the user is asking. The functions are constrained by examples, narrowing the hypothesis space down to better predictions of what the user wants.
+
+The primary example defined in \cite{short} is one of a text editor called SMARTEdit. A user may want to perform complex actions such as delete text between these quotes, or move down five lines then copy the text until the work ``Hello". The version space algebra for this example is built by a small set of base version spaces called atomic version spaces, and algebraic operations on them such as union and intersection. For the specific version space that corresponds to moving between rows, the hypothesis space may be all functions which map an integer to another integer. After the user records an action such as ``jump from the second row to the fifth", or $f(2) = 5$, the version space collapses to a single function. The complete version space algebra which corresponds the SMARTEdit is built by composing these smaller version spaces.
+
+Due to their development in applied machine learning, the definitions are based entirely in set theory, however these constructs can be translated into a category. 
 
 \section{Version Spaces}
+There are four main components in defining a version space: 
+\begin{itemize}
+    \item H: The hypothesis space
+    \item D: The examples
+    \item VSA: the version space
+    \item Algebraic operations on VSAs
+\end{itemize}
+
+The \textbf{hypothesis space} $H$ is a set of functions: $H = \{f| f:A\rightarrow B\}$. An element of the hypothesis space is a \textbf{hypothesis}. 
+
 Lau et al.\cite{short}  define a Version Space $VS_{H,D}$ as such: 
 
 \begin{definition}[Version Space] 
@@ -235,9 +249,9 @@ with the downward arrows the projection map $pi_D$. Training a version space can
 \section{New}
 We need to redefine xxx major definitions in category theoretic terms: 
 \begin{itemize}
-    \item H, The hypothesis space
-    \item D, The examples
-    \item VSA, the version space
+    \item H: The hypothesis space
+    \item D: The examples
+    \item VSA: the version space
     \item Algebraic operations on VSAs
 \end{itemize}
 \subsection{Working example}
@@ -275,7 +289,7 @@ The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom
 In our working example, $H=\{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. We can redefine this as $I: H\rightarrow hom(\mathbb{Z},\mathbb{Z})$ under the inclusion map $I$. $H$ is an object in this category of the form $Hom(\mathbb{Z},\mathbb{Z})$.
 
 \subsubsection{Comma Category}
-To define the hypothesis space we need the $hom$ functor as well as a specific comma category. Using $I$ as the inclusion functor, we can construct a comma category as such: 
+To define the hypothesis space we need the $hom$ functor as well as a specific comma category. Using $I$ as the inclusion functor, we can construct the \textbf{hypothesis category}, a comma category as such: 
 
 % https://q.uiver.app/?q=WzAsMyxbMCwwLCJTZXQgXFx0aW1lcyBTZXRee09wfSJdLFsyLDAsIlNldCJdLFs0LDAsIlNldCJdLFswLDEsImhvbShcXGNkb3QsIFxcY2RvdCkiXSxbMiwxLCJJIiwyXV0=
 \[\begin{tikzcd}
@@ -296,7 +310,7 @@ To define the hypothesis space we need the $hom$ functor as well as a specific c
 	\arrow["\psi", from=1-4, to=2-4]
 	\arrow[shorten <=18pt, shorten >=18pt, Rightarrow, from=0, to=1]
 \end{tikzcd}\]
-where $\psi$ is the induced arrow from one hypothesis space to another. Therefore we can define the hypothesis space as an object in the comma category defined above, giving us $Hom(A,B)$ while preserving the information of $A$ and $B$.
+where $\psi$ is the induced arrow from one hypothesis space to another. Therefore we can define the hypothesis space as an object in the hypothesis category, giving us $Hom(A,B)$ while preserving the information of $A$ and $B$.
 
 \subsubsection{Working example}
 We previously defined $H$, now we expand $H$ to sit inside a comma category. The comma category for the \textbf{Row} version space has objects: $((\mathbb{Z}, \mathbb{Z}), H, \iota)$ where $H$ is an object in the image of $hom(\mathbb{Z},\mathbb{Z})$ and $\iota$ is the inclusion map. 
