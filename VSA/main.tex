@@ -68,7 +68,7 @@ For instance, $(1,2) \in \mathbb{Z} \times \mathbb{Z}$.
 
 A hypothesis $f: A\rightarrow B$ is \textbf{consistent} with an example $(i,o) \in A\times B$ if $f(i) = o$. Using our two examples above, $f\in H $ is consistent with $(1,2)$ if $f(1) = 2$. 
 
-The hypothesis space provides an ``ambient space" to work in, or a space of functions which could possibly be models for our predictions. The examples serve to constrain which functions we are studying, giving a way to refine the ambient space into a specific model.  The examples, $D$, are pairs of elements in the domain and range of these functions for which our model should respect. A version space is the set of the functions in the ambient space that are consistent with the examples. 
+The hypothesis space provides a domain to work in, or a space of functions which could possibly be models for our predictions. The examples serve to constrain which functions we are studying, giving a way to refine the ambient space into a specific model.  The examples, $D$, are pairs of elements in the domain and range of these functions for which our model should respect. A version space is the set of the functions in the ambient space that are consistent with the examples. 
 
 In practice the ambient space may be something like "words in our document", or "integers representing row and column numbers", however then only need be functions between (small) sets. Version spaces are used to define all possible actions of a specific type, then constrained to the examples observed in the current document. This is used to generate predictions, where the examples we have used in our document are used to predict future actions.
 
@@ -124,7 +124,7 @@ with the downward arrows the projection map onto the examples. Training a versio
 \end{definition}
 
 \section{Category Theory}
-In the previous section we defined a version space and a set of operations on it. In this section we will redefine version spaces in categorical terms.  
+The main goal of this paper is to redefine a version space in a categorical framework.
 
 To start, we make a simplification to the definition of a version space. In section 2, we say a the examples are pairs $(i, o) \in A\times B$ where $A$ is the domain and $B$ is the codomain of the hypothesises. If there exists a two pairs $(i, o)$ and $(i, j)$ where $i\neq j$, then the version space is the empty set as no function $f$ can satisfy this condition. If we disallow conflicting examples such as the one above, the the examples can be represented as a partial function: $g_D : A' \rightarrow B$ where $A' \subseteq A$. This means our definition of version space is equivalent to $VS_{H,g_D} = \{f \in H : f|_{A'} = g_D\}$
 
@@ -279,8 +279,13 @@ Let $H = \{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. This represents all possi
 We begin by defining the hypothesis space in categorical terms. Recall the previous definition of $H$: $H\subseteq \{f: f: A \rightarrow B\}$.
 By redefining the hypothesis space in categorical terms, we can define a version space transform as an arrow in a category instead of a separate set. 
 
+In categorical terms, the set of all maps $f: A \rightarrow B$ in a category is called $Hom(A,B)$. In this case the hypothesis space is a subset of $Hom(A,B)$. 
+
 The first step to defining the hypothesis space is defining the $hom(\cdot, \cdot)$ functor, which is used to model the functions of a hypothesis space. The $hom$ functor is not enough alone though, as it does not preserve $A$ and $B$. To do this, we will define $H$ first then move the construction of $H$ into a comma category.
+
 \begin{definition}
+The $hom$ functor sends a pair of objects to their $Hom$ set. 
+
 Define the $hom$ functor $hom(\cdot,\cdot)$:
 \begin{gather*}
     hom(\cdot,\cdot):Set^{Op} \times Set \rightarrow Set \\
@@ -293,16 +298,22 @@ Define the $hom$ functor $hom(\cdot,\cdot)$:
 	\arrow[""{name=1, anchor=center, inner sep=0}, from=1-1, to=2-1]
 	\arrow[shorten <=10pt, shorten >=10pt, Rightarrow, from=1, to=0]
 \end{tikzcd}\]
+Then $H$ is a set with a monic arrow into $hom(A,B)$.
 \end{definition}
-Notice that $hom(\cdot, \cdot)$ is a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$, the restriction to monic is necessary to preserve the domain and codomain. The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2, $H$ must map into $hom(A,B)$ via the inclusion map (a monic arrow). Studying arrows other than the inclusion map is worth further work. 
+This functor sends a pair of sets to their $Hom$ set, which is used to construct the hypothesis space. The functor also sends a pair of arrows in the domain to an arrow between $Hom$ sets through composition which allows maps between the sets to induce maps between hypothesis spaces. 
 
-The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom$ function includes a notion of arrows between objects, these arrows will come to represent version space transforms.
+
+Notice that $hom(\cdot, \cdot)$ is a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$, the restriction to monic is necessary to preserve the domain and codomain. The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2 where $H$ is a subset of the $Hom$ set, $H$ must map into $hom(A,B)$ via the inclusion map (a monic arrow). Studying arrows other than the inclusion map is worth further work. 
+
+The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom$ function includes a notion of arrows between objects, these arrows will induce version space transforms. 
 
 \subsubsection{Working example}
-In our working example, $H=\{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. We can redefine this as $I: H\rightarrow hom(\mathbb{Z},\mathbb{Z})$ under the inclusion map $I$. $H$ is an object in this category of the form $Hom(\mathbb{Z},\mathbb{Z})$.
+In our working example, $H=\{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. We can redefine $H$ as $H \rightarrow hom(\mathbb{Z}, \mathbb{Z})$ where the arrow is the inclusion map. $H$ is an object in $Set$ of the form $Hom(\mathbb{Z},\mathbb{Z})$.
 
-\subsubsection{Comma Category}
-To define the hypothesis space we need the $hom$ functor as well as a specific comma category. Using $I$ as the inclusion functor, we can construct the \textbf{hypothesis category}, a comma category as such: 
+\subsubsection{Hypothesis category}
+Let $(A, B) \in Set^{op} \times Set$, $H \in Set$ where $H$ is a hypothesis space, and $i:H \rightarrow hom(A,B)$ the monic inclusion functor. 
+
+We can construct the \textbf{hypothesis category}, a comma category as such: 
 
 % https://q.uiver.app/?q=WzAsMyxbMCwwLCJTZXQgXFx0aW1lcyBTZXRee09wfSJdLFsyLDAsIlNldCJdLFs0LDAsIlNldCJdLFswLDEsImhvbShcXGNkb3QsIFxcY2RvdCkiXSxbMiwxLCJJIiwyXV0=
 \[\begin{tikzcd}
@@ -311,9 +322,26 @@ To define the hypothesis space we need the $hom$ functor as well as a specific c
 	\arrow["I"', from=1-5, to=1-3]
 \end{tikzcd}\]
 \begin{gather*}
-    \text{With objects: } ((A,B), H, i) \text{ where $i: I(H) \rightarrow hom(A,B)$ monic} \\
-    \text{and arrows: } 
+    \text{With objects: } \\
+    ((A,B), H, i) \\
+    \text{and arrows: }  \\
+	{((A_1,B_1), H_1, i)} \rightarrow  {((A_2,B_2), H_2, i)} \\
+    \text{which consist of: }  \\
+    u: A_2 \rightarrow A_1 \\
+    v: B_1 \rightarrow B_2 \\
+    s: H_1 \rightarrow H_2 \\
+    \text{such that this diagram commutes: }
+    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJIXzEiXSxbMCwyLCJIXzIiXSxbMiwwLCJIb20oQV8xLEJfMSkiXSxbMiwyLCJIb20oQV8yLEJfMikiXSxbMCwxLCJzIl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwzXSxbMiwzLCIodSwgdileKiIsMl1d
 \end{gather*}
+\[\begin{tikzcd}
+	{H_1} && {Hom(A_1,B_1)} \\
+	\\
+	{H_2} && {Hom(A_2,B_2)}
+	\arrow["s", from=1-1, to=3-1]
+	\arrow["i", hook, from=1-1, to=1-3]
+	\arrow["i", hook, from=3-1, to=3-3]
+	\arrow["{(u, v)^*}"', from=1-3, to=3-3]
+\end{tikzcd}\]
 % https://q.uiver.app/?q=WzAsNixbMCwwLCIoKEFfMSxCXzEpLCBIXzEsIGkpIl0sWzAsMSwiKChBXzIsQl8yKSxIXzIsIGkpIl0sWzIsMCwiKEFfMSwgQl8xKSJdLFsyLDEsIihBXzIsQl8yKSJdLFszLDAsIkhfMSJdLFszLDEsIkhfMiJdLFswLDFdLFsyLDNdLFs0LDVdLFs2LDcsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH0sInN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
 \[\begin{tikzcd}
 	{((A_1,B_1), H_1, i)} && {(A_1, B_1)} & {H_1} \\
