@@ -28,36 +28,32 @@
 \maketitle
 
 \begin{abstract}
-Version space algebras are are objects primarily used in machine learning to model a domain and restricting that domain to a set of predictions. They are constructed using basic set theory, however many of their definitions translate naturally into a category theoretic context. 
-
-We give a category theoretic definition of version space algebras and their operations. 
+Version space algebras are objects primarily used in machine learning to model a domain and then restrictions of that domain to a set of predictions. They are constructed using basic set theory, but many of their definitions translate naturally into category theory. We give a category theoretic definition of version space algebras and their operations. 
 \end{abstract}
 
 \section{Introduction}
-Version spaces were first developed as a framework for machine learning in the 80s \cite{original}. Initially they were used to generate predictions based on a small set of examples. They served as a precursor to modern machine learning methods. In recent years machine learning has mostly taken a different approach, yet there is still some recent work on version spaces. 
+Version spaces were first developed as a framework for machine learning in the 1980s \cite{original}. Initially they were used to generate predictions based on a small set of examples. They served as a precursor to modern machine learning methods. In recent years machine learning has mostly taken a different approach, yet there is still some recent work on version spaces. 
 
-Similar to current tensor based methods, version spaces provide a space of all possible functions (a domain) and examples which constrain those functions to usable predictions. The set of all possible functions is called the hypothesis space, and a single function is called a hypothesis. These are used to generate predictions, each provide a hypothesis of what the user is asking. The functions are constrained by examples, narrowing the hypothesis space down to better predictions of what the user wants.
+Similar to current tensor-based methods, version spaces provide a space of all possible functions (a domain) and examples which constrain those functions to usable predictions. The set of all possible functions is called the \textit{hypothesis space}, and a single function is called a \textit{hypothesis}. These are used to generate predictions, with each providing a hypothesis of what the user is asking. The functions available are constrained by the examples, which narrow the hypothesis space down to the best predictions of what the user wants.
 
-The primary example defined in \cite{short} is one of a text editor called SMARTEdit. A user may want to perform complex actions such as delete text between these quotes, or move down five lines then copy the text until the work ``Hello". The version space algebra for this example is built by a small set of base version spaces called atomic version spaces, and algebraic operations on them such as union and intersection. For the specific version space that corresponds to moving between rows, the hypothesis space may be all functions which map an integer to another integer. After the user records an action such as ``jump from the second row to the fifth", or $f(2) = 5$, the version space collapses to a single function. The complete version space algebra which corresponds the SMARTEdit is built by composing these smaller version spaces.
+The primary example defined in \cite{short} is a text editor called SMARTEdit. In this example, a user may want to perform complex actions such as \texttt{delete text between these quotes}, or \texttt{move down five lines then copy the text until the word ``Hello"}. The version space algebra for this example is built by a small set of base version spaces called \textit{atomic version spaces}, and algebraic operations on them such as union and intersection. For the specific version space that corresponds to moving between rows, the hypothesis space might be the space of all functions which map an integer to another integer. After the user records an action such as ``jump from the second row to the fifth", or $f(2) = 5$, the version space collapses to only those functions for which $f(2) = 5$. The complete version space algebra which corresponds to SMARTEdit is built by combining these atomic version spaces.
 
-Due to their development in applied machine learning, the definitions are based entirely in set theory, however these constructs can be translated into a category. 
-
-In this paper, we will first outline the original definitions for version spaces, then translate them into a category theoretic context. 
+Due to their development in applied machine learning, all of the constructions are based entirely in set theory. However these constructs can be translated into a category. In this paper, we will first outline the original definitions for version spaces, then translate them into a category theoretic context. 
 
 \section{Version Spaces}
 There are four main components in defining a version space: 
 \begin{itemize}
-    \item H: The hypothesis space
-    \item D: The examples
-    \item VSA: the version space
-    \item Algebraic operations on VSAs
+    \item $H$: The \textit{hypothesis space}
+    \item $D$: The \textit{examples}
+    \item $VS_{H,D}$: the \textit{version space}
+    \item The algebraic operations on version spaces
 \end{itemize}
 
 %Lau et al.\cite{short}  define a Version Space $VS_{H,D}$ as such: 
 
 \subsection{The hypothesis space}
 
-The \textbf{hypothesis space} is a set of functions with a common domain $A$ and codomain $B$ labeled $H = \{f | f: A \rightarrow B \}$. Such a function $h \in H$ is called a hypothesis.  The hypotheses space provides a ``domain" to work in, or a set of all hypothesises of functions which could be used to generate predictions. As we train our version space, the set of hypotheses shrinks to match our updated data. 
+The \textbf{hypothesis space} is a set of functions with a common domain $A$ and codomain $B$, labeled $H = \{f | f: A \rightarrow B \}$. Each function $h \in H$ is called a \textbf{hypothesis}.  The hypotheses space provides a ``domain" to work in, or a set of all hypothesises of functions which could be used to generate predictions. As we train our version space, the set of hypotheses shrinks to match our updated data. 
 
 For example, $H = \{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$, the set of functions which send an integer to an integer. 
 
@@ -265,7 +261,6 @@ Next, we redefine the three major components of a version space:
     \item H: The hypothesis space
     \item D: The examples
     \item VSA: the version space
-    %\item Algebraic operations on VSAs
 \end{itemize}
 \subsection{Working example}
 In this section, it would be helpful to have a working example to discuss as we update our definitions. If one were trying to generate helpful predictions for a text editor (See SMARTEdit \cite{short}), one would need a set of operations to predict. For example, one may want to predict actions such as delete text starting with a prefix, find the next instance of a word, move to the third row, or insert this text. We will use the example of a function which is used to represent moving between rows as our working example. 
