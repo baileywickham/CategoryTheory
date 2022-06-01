@@ -19,7 +19,7 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{theorem}{Theorem}[section]
-
+\newtheorem*{remark}{Remark}
 
 \title{Version Space Algebras and Category Theory}
 \author{Bailey Wickham}
@@ -260,62 +260,67 @@ In categorical terms, the category of all set maps $f: A \rightarrow B$ denoted 
 The first step to defining the hypothesis space is defining the $hom(\cdot, \cdot)$ functor, which is used to model the functions of a hypothesis space. The $hom$ functor is not enough alone though, as it does not preserve $A$ and $B$. To do this, we will define $H$ first then move the construction of $H$ into a comma category.
 
 \begin{definition}
-The $hom$ functor sends a pair of objects to their $Hom$ set. 
+Define a functor $hom(\cdot,\cdot): \operatorname{Set^{op}} \times \operatorname{Set} \rightarrow \operatorname{Set}$ as follows. For a pair of sets $(A,B)$, let $Hom(A,B)$ denote the collection of set maps $f:A\rightarrow B$. As for arrows, first recall that an arrow $(u,v):(A_1, B_1) \rightarrow (A_2, B_2)$ in corresponds to a pair of set maps $u: A_2 \rightarrow A_1, v:B_1\rightarrow B_2$. Let $(u,v)^*: Hom(A_1,B_1) \rightarrow Hom(A_2,B_2)$ be the map that sends the function $f:A_1\rightarrow B_1$ to the function $g: A_2 \rightarrow B_2$ defined by $g=v \circ f \circ u$ This can be visualized by the commutative diagram below: 
 
-Define the $hom$ functor $hom(\cdot,\cdot)$:
-\begin{gather*}
-    hom(\cdot,\cdot):Set^{Op} \times Set \rightarrow Set \\
-    (A,B) \rightarrow Hom(A,B) \\
-\end{gather*}
 \[\begin{tikzcd}
-	{(A_1, B_1)} & {Hom(A_1, B_1)} \\
-	{(A_2,B_2)} & {Hom(A_2,B_2)}
-	\arrow[""{name=0, anchor=center, inner sep=0}, from=1-2, to=2-2]
-	\arrow[""{name=1, anchor=center, inner sep=0}, from=1-1, to=2-1]
-	\arrow[shorten <=10pt, shorten >=10pt, Rightarrow, from=1, to=0]
+	{A_1} && {B_1} \\
+	\\
+	{A_2} && {B_2}
+	\arrow["f", from=1-1, to=1-3]
+	\arrow["u", from=3-1, to=1-1]
+	\arrow["g"', from=3-1, to=3-3]
+	\arrow["v", from=1-3, to=3-3]
 \end{tikzcd}\]
-Then $H$ is a set with a monic arrow into $hom(A,B)$.
+%\[\begin{tikzcd}
+%	{(A_1, B_1)} & {Hom(A_1, B_1)} \\
+%	{(A_2,B_2)} & {Hom(A_2,B_2)}
+%	\arrow[""{name=0, anchor=center, inner sep=0}, from=1-2, to=2-2]
+%	\arrow[""{name=1, anchor=center, inner sep=0}, from=1-1, to=2-1]
+%	\arrow[shorten <=10pt, shorten >=10pt, Rightarrow, from=1, to=0]
+%\end{tikzcd}\]
+A \textbf{hypothesis space} is then a monic arrow $i:H\rightarrow Hom(A,B)$
 \end{definition}
-This functor sends a pair of sets to their $Hom$ set, which is used to construct the hypothesis space. The functor also sends a pair of arrows in the domain to an arrow between $Hom$ sets through composition which allows maps between the sets to induce maps between hypothesis spaces. 
 
+\begin{remark}
+The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in Section 2, $H$ must map into $Hom(A,B)$ via the inclusion map (a monic arrow). Studying arrows other than the inclusion map is worth further work.
+\end{remark}  
 
-Notice that $hom(\cdot, \cdot)$ is a bifunctor defined in terms of of $hom(\cdot,B)$ and $hom(A,\cdot)$. Given sets $A, B$, $H$ is a monic arrow into $hom(A,B)$, the restriction to monic is necessary to preserve the domain and codomain. The problem with this definition is that it does not preserve the information of $A$ and $B$, we will fix this with a comma category. To strictly match the definition of the hypothesis space given in section 2 where $H$ is a subset of the $Hom$ set, $H$ must map into $hom(A,B)$ via the inclusion map (a monic arrow). Studying arrows other than the inclusion map is worth further work. 
+The benefit of using the $Hom$ functor instead of the $Hom$ set is that the $Hom$ functor includes a notion of arrows between objects. These arrows will induce version space transforms. 
 
-The benefit of using the $hom$ functor instead of the $Hom$ set is that the $hom$ function includes a notion of arrows between objects, these arrows will induce version space transforms. 
-
-\subsubsection{Working example}
-In our working example, $H=\{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. We can redefine $H$ as $H \rightarrow hom(\mathbb{Z}, \mathbb{Z})$ where the arrow is the inclusion map. $H$ is an object in $Set$ of the form $Hom(\mathbb{Z},\mathbb{Z})$.
+In our working example, we have $H=\{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. In this case the inclusion map gives us a monic arrow $H \hookrightarrow Hom(\mathbb{Z}, \mathbb{Z})$.  
 
 \subsubsection{Hypothesis category}
+To preserve the data of $A$ and $B$, we can construct a category of hypothesis spaces, borrowing the notion of a comma category. The objects of the hypothesis category consist of the triple $((A,B),H,i)$ where $A$ and $B$ are sets and $i:H \rightarrow Hom(A,B)$ is a hypothesis space. An arrow from a tiple $((A_1,B_1),H_1,i_1)$ to a triple $((A_2,B_2), H_2, i_2)$ consists of arrows $(u,v):(A_1,B_1) \rightarrow (A_2,B_2)$, $s:H_1 \rightarrow H_2$ such that the diagram below commutes. 
+
 Let $(A, B) \in Set^{op} \times Set$, $H \in Set$ where $H$ is a hypothesis space, and $i:H \rightarrow hom(A,B)$ the monic inclusion functor. 
 
-We can construct the \textbf{hypothesis category}, a comma category as such: 
+We can construct the \textbf{Hyp category}, a comma category as such: 
 
 % https://q.uiver.app/?q=WzAsMyxbMCwwLCJTZXQgXFx0aW1lcyBTZXRee09wfSJdLFsyLDAsIlNldCJdLFs0LDAsIlNldCJdLFswLDEsImhvbShcXGNkb3QsIFxcY2RvdCkiXSxbMiwxLCJJIiwyXV0=
-\[\begin{tikzcd}
-	{Set^{Op} \times Set} && Set && Set
-	\arrow["{hom(\cdot, \cdot)}", from=1-1, to=1-3]
-	\arrow["I"', from=1-5, to=1-3]
-\end{tikzcd}\]
-\begin{gather*}
-    \text{With objects: } \\
-    ((A,B), H, i) \\
-    \text{and arrows: }  \\
-	{((A_1,B_1), H_1, i)} \rightarrow  {((A_2,B_2), H_2, i)} \\
-    \text{which consist of: }  \\
-    u: A_2 \rightarrow A_1 \\
-    v: B_1 \rightarrow B_2 \\
-    s: H_1 \rightarrow H_2 \\
-    \text{such that this diagram commutes: }
-    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJIXzEiXSxbMCwyLCJIXzIiXSxbMiwwLCJIb20oQV8xLEJfMSkiXSxbMiwyLCJIb20oQV8yLEJfMikiXSxbMCwxLCJzIl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwzXSxbMiwzLCIodSwgdileKiIsMl1d
-\end{gather*}
+%\[\begin{tikzcd}
+%	{Set^{Op} \times Set} && Set && Set
+%	\arrow["{hom(\cdot, \cdot)}", from=1-1, to=1-3]
+%	\arrow["I"', from=1-5, to=1-3]
+%\end{tikzcd}\]
+%\begin{gather*}
+%    \text{With objects: } \\
+%    ((A,B), H, i) \\
+%    \text{and arrows: }  \\
+%	{((A_1,B_1), H_1, i)} \rightarrow  {((A_2,B_2), H_2, i)} \\
+%    \text{which consist of: }  \\
+%    u: A_2 \rightarrow A_1 \\
+%    v: B_1 \rightarrow B_2 \\
+%    s: H_1 \rightarrow H_2 \\
+%    \text{such that this diagram commutes: }
+%    % https://q.uiver.app/?q=WzAsNCxbMCwwLCJIXzEiXSxbMCwyLCJIXzIiXSxbMiwwLCJIb20oQV8xLEJfMSkiXSxbMiwyLCJIb20oQV8yLEJfMikiXSxbMCwxLCJzIl0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwzXSxbMiwzLCIodSwgdileKiIsMl1d
+%\end{gather*}
 \[\begin{tikzcd}
 	{H_1} && {Hom(A_1,B_1)} \\
 	\\
 	{H_2} && {Hom(A_2,B_2)}
 	\arrow["s", from=1-1, to=3-1]
-	\arrow["i", hook, from=1-1, to=1-3]
-	\arrow["i", hook, from=3-1, to=3-3]
+	\arrow["i_1", hook, from=1-1, to=1-3]
+	\arrow["i_2", hook, from=3-1, to=3-3]
 	\arrow["{(u, v)^*}"', from=1-3, to=3-3]
 \end{tikzcd}\]
 %% https://q.uiver.app/?q=WzAsNixbMCwwLCIoKEFfMSxCXzEpLCBIXzEsIGkpIl0sWzAsMSwiKChBXzIsQl8yKSxIXzIsIGkpIl0sWzIsMCwiKEFfMSwgQl8xKSJdLFsyLDEsIihBXzIsQl8yKSJdLFszLDAsIkhfMSJdLFszLDEsIkhfMiJdLFswLDFdLFsyLDNdLFs0LDVdLFs2LDcsIiIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH0sInN0eWxlIjp7InRhaWwiOnsibmFtZSI6ImFycm93aGVhZCJ9fX1dXQ==
@@ -327,44 +332,61 @@ We can construct the \textbf{hypothesis category}, a comma category as such:
 %	\arrow["\psi", from=1-4, to=2-4]
 %	\arrow[shorten <=18pt, shorten >=18pt, Rightarrow, from=0, to=1]
 %\end{tikzcd}\]
-Now we can define the hypothesis space as an object in the hypothesis category, giving us $Hom(A,B)$ while preserving the information of $A$ and $B$.
 
-\subsubsection{Working example}
-We previously defined $H$, now we expand $H$ to sit inside a comma category. The comma category for the \textbf{Row} version space has objects: $((\mathbb{Z}, \mathbb{Z}), H, \iota)$ where $H$ is an object in the image of $hom(\mathbb{Z},\mathbb{Z})$ and $\iota$ is the inclusion map. 
+Now we can define a hypothesis space $i:H\rightarrow Hom(A,B)$ as an object in the \textbf{Hyp} category, giving us $Hom(A,B)$ while preserving the information of $A$ and $B$.
 
-While the notation here may be cumbersome, the essential information is the hypothesis, and the domain and codomain of them.  In this example, the essential information we care about is that $H \in Hom(\mathbb{Z}, \mathbb{Z})$, and that the domain and codomain of the $Hom$ set are preserved.  
+While the notation here may be cumbersome, the essential information is the hypothesis, and the domain and codomain of them.    
+
+In our working example, the \textbf{Row} version space corresponds to the objects: $((\mathbb{Z}, \mathbb{Z}), H, i)$. 
+
 
 \subsection{The examples}
-Next is the examples. As we noted in the beginning of this section, we consider the examples to be a partial function $g_D: A' \rightarrow B$ where $A' \subseteq A$. Examples are used to check the consistency of a function, or whether for $f\in H$, $f(i) = o$. 
+Next is the examples. As we noted in the beginning of this section, we consider the set of examples to be equivalent to a function $g_D: A' \rightarrow B$ where $A' \subseteq A$.  Here there is a one-to-one correspondence between a set of examples $D$ and a function $g_D$ defined on a subset of the domain of the hypothesis space. 
 
-One of the difficulties in translating version space algebras to category theory is the notion of "filtering" or checking the consistency of each function in $H$. Filtering is inherently not something category theory handles well as it is designed to study ``all" objects of a class.
+One of the difficulties in translating version space algebras to category theory is the notion of ``filtering", or checking the consistency of each function in $H$. 
 
-Using the partial function definition of examples, training can be realized as in one of two ways. Traning can be represted as expanding the example partial $g_D$ to a new partial function $g_{D'}$ where $D\subseteq D'$. This allows us to have only one example partial at a time. The other possibility is that the examples can be realized as a set $D$ of partial functions $g_{D_i}: A_i \rightarrow B $ where if $A_i \cap A_j \ne \emptyset$ then $g_i$ and $g_j$ must agree on $A_i \cap A_j$.
+%Filtering is inherently not something category theory handles well as it is designed to study ``all" objects of a class.
 
-\subsubsection{Working example}
-In our example of \textbf{Row}, examples are supposed to capture the information of jumping from one row to another. If we were to jump from the first row to the fifth, this would be the pair $(1,5)\in D$. Any function in $H$ that sends $1$ to $5$ would be consistent with this example, and remain in the version set. 
+TODO: FINISH THIS SECTION AND FIX WORKING EXAMPLE
+
+In \textbf{Row}, an example would be the function $f: {1} \rightarrow \mathbb{Z}$. Examples are supposed to capture the information of jumping from one row to another. If we were to jump from the first row to the fifth, this would be the pair $(1,5)\in D$. Any function in $H$ that sends $1$ to $5$ would be consistent with this example, and remain in the version set. 
 
 For example, the function $f(x) = x + 4$ would be an element of our version space, and correspond to the action of "move down four lines" in the text editor, a reasonable prediction. 
 
 \subsection{Version spaces}
-To define a version space, we take the functions in the hypothesis space which are consistent with our examples. We will construct the version space object as a pullback of two morphisms. 
+To define a version space, we take only the functions in the hypothesis space that are consistent with our examples. We will construct the version space object as a pullback of two morphisms in $Set$. 
 
-The first morphism serves to send the hypothesis space for a partial function to the complete hypothesis space. Let $A$ be the domain and $B$ the codomain of a hypothesis space, and $A'\subseteq A$. Let $j:A' \rightarrow A$ and let $res_{A, A'} = (j, 1_B)^*$. Given a function $f \in H$:
-\begin{gather*}
-    res_{A,A'}(f) = f|_{A'} : A' \rightarrow B \\
-    A' \xrightarrow{j} A \xrightarrow{f} B \rightarrow{1_B} B \\
-    \text{ so } \\
-    res_{A, A'}: Hom(A,B) \rightarrow Hom(A',B)
-\end{gather*}
+We first recall the notion of a pullback in $Set$. Suppose $f:X\rightarrow Z$ and $g:Y\rightarrow Z$ are two set maps. The set of all pairs $(x,y \in X \times Y$ such that $f(x) = g(y)$ is called the pullback of $f$ and $g$ (or in Set, the fibered product of $f$ and $g$). We denote this result $X \times_Z Y$. Note that we have a commutative diagram: 
 
-The other morphism we define is $g_D$ (xxx might need to rename this), defined on the one point category to ``pick" out the example partial. This morphism sends the single object in the single object category to $g_D$, the example partial. 
-\begin{gather*}
-    g_D : \{*\} \rightarrow Hom(A',B) \\
-    * \rightarrow g_D
-\end{gather*}
+\[\begin{tikzcd}
+	{X\times_Z Y} && Y \\
+	\\
+	X && Z
+	\arrow["{\pi_2}", from=1-1, to=1-3]
+	\arrow["{\pi_1}"', from=1-1, to=3-1]
+	\arrow["f"', from=3-1, to=3-3]
+	\arrow["g", from=1-3, to=3-3]
+\end{tikzcd}\]
 
-Finally, the pullback is: $VS_{H,D} = H\times_{Hom(A',B)} \{*\} \cong  \{f\in H : res_{A, A'}(f) = g_D\}$ 
+Now suppose $i:H \rightarrow Hom(A,B)$ is a hypothesis space, and $g_D: A\rightarrow B$ corresponds to a set of examples. Note that the subset inclusions $A' \subseteq A$ and $B \subseteq B$ induce a map $Hom(A,B) \rightarrow Hom(A',B)$, which we denote $\operatorname{res}_{A,A'}$ and call the \textbf{restriction map}. A hypothesis $h \in H$ is consistent with a set of examples $D$ only if $res_{A,A'}(h) = g_D$. Note that $res_{A,A'}(h)$ is a notational simplification of $res_{A,A'}(i(h))$. Again abusing notation, let $g_D$ also denote the map $g_D: \{*\}\rightarrow \operatorname{Hom}(A',B)$ that sends $\{*\}$ to the single object $\{*\}$ to $g_D \in Hom(A', B)$. Finally, the version space $VS_{H,D}$ can be viewed as the pullback diagram below. 
+\[\begin{tikzcd}
+	&& H \\
+	{VS_{H,D}} && {Hom(A,B)} \\
+	\\
+	\{*\} && {Hom(A', B)}
+	\arrow[from=2-1, to=4-1]
+	\arrow["{g_D}"', from=4-1, to=4-3]
+	\arrow[from=2-1, to=1-3]
+	\arrow["{res_{A,A'}}"{description}, from=2-3, to=4-3]
+	\arrow["i", from=1-3, to=2-3]
+\end{tikzcd}\]
 
+TODO: make this consistent with above. Finally, the pullback is: $VS_{H,D} = H\times_{Hom(A',B)} \{*\} \cong  \{f\in H : res_{A, A'}(f) = g_D\}$ 
+
+\subsection{Training}
+TODO: TRAINING
+
+Using the function definition of examples, training can be realized as in one of two ways. Training can be represented as expanding the example partial $g_D$ to a new partial function $g_{D'}$ where $D\subseteq D'$. This allows us to have only one example partial at a time. The other possibility is that the examples can be realized as a set $D$ of partial functions $g_{D_i}: A_i \rightarrow B $ where if $A_i \cap A_j \ne \emptyset$ then $g_i$ and $g_j$ must agree on $A_i \cap A_j$.
 
 
 
