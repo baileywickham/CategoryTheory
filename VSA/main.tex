@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-Version space algebras are objects primarily used in machine learning to model a domain and then restrictions of that domain to a set of predictions. They are constructed using basic set theory, but many of their definitions translate naturally into category theory. We give a category theoretic definition of version space algebras and their operations. 
+Version space algebras are objects primarily used in machine learning to model a domain and then restrictions of that domain to a set of predictions. They are constructed using basic set theory, but many of their definitions translate naturally into category theory. We give a category-theoretic definition of version space algebras and their operations. 
 \end{abstract}
 
 \section{Introduction}
@@ -36,9 +36,9 @@ Version spaces were first developed as a framework for machine learning in the 1
 
 Similar to current tensor-based methods, version spaces provide a space of all possible functions (a domain) and examples which constrain those functions to usable predictions. The set of all possible functions is called the \textit{hypothesis space}, and a single function is called a \textit{hypothesis}. These are used to generate predictions, with each providing a hypothesis of what the user is asking. The functions available are constrained by the examples, which narrow the hypothesis space down to the best predictions of what the user wants.
 
-The primary example defined in \cite{short} is a text editor called SMARTEdit. In this example, a user may want to perform complex actions such as \texttt{delete text between these quotes}, or \texttt{move down five lines then copy the text until the word ``Hello"}. The version space algebra for this example is built by a small set of base version spaces called \textit{atomic version spaces}, and algebraic operations on them such as union and intersection. For the specific version space that corresponds to moving between rows, the hypothesis space might be the space of all functions which map an integer to another integer. After the user records an action such as ``jump from the second row to the fifth", or $f(2) = 5$, the version space collapses to only those functions for which $f(2) = 5$. The complete version space algebra which corresponds to SMARTEdit is built by combining these atomic version spaces.
+The primary example defined in \cite{short} is a text editor called SMARTEdit. In this example, a user may want to perform complex actions such as \texttt{delete text between these quotes}, or \texttt{move down five lines then copy the text until the word "Hello"}. The version space algebra for this example is built by a small set of base version spaces called \textit{atomic version spaces}, and algebraic operations on them such as union and intersection. For the specific version space that corresponds to moving between rows, the hypothesis space might be the space of all functions which map an integer to another integer. After the user records an action such as ``jump from the second row to the fifth", or $f(2) = 5$, the version space collapses to only those functions for which $f(2) = 5$. The complete version space algebra which corresponds to SMARTEdit is built by combining these atomic version spaces.
 
-Due to their development in applied machine learning, all of the constructions are based entirely in set theory. However these constructs can be translated into a category. In this paper, we will first outline the original definitions for version spaces, then translate them into a category theoretic context. 
+Due to their development in applied machine learning, all of the constructions are based entirely in set theory. However, these constructs can be translated into a category. In this paper, we will first outline the original definitions for version spaces, then translate them into a category-theoretic context. 
 
 \section{Version Spaces}
 There are four main components in defining a version space: 
@@ -53,9 +53,9 @@ There are four main components in defining a version space:
 
 \subsection{The hypothesis space}
 
-The \textbf{hypothesis space} is a set of functions with a common domain $A$ and codomain $B$, labeled $H = \{f | f: A \rightarrow B \}$. Each function $h \in H$ is called a \textbf{hypothesis}.  The hypotheses space provides a ``domain" to work in, or a set of all hypothesises of functions which could be used to generate predictions. As we train our version space, the set of hypotheses shrinks to match our updated data. 
+The \textbf{hypothesis space} is a set of functions with a common domain $A$ and codomain $B$, labeled $H = \{f | f: A \rightarrow B \}$. Each function $h \in H$ is called a \textbf{hypothesis}.  The hypothesis space provides a ``domain" to work in, or a set of all hypotheses of functions which could be used to generate predictions. As we train our version space, the set of hypotheses shrinks to match our updated data. 
 
-For example, $H = \{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$, the set of functions which send an integer to an integer. An element of this space, $f\in H$ could be $f(x) = x + 3$ or $f(x) = 3$, the only requirement for $f$ is that it is a function. For a more applicable example, let $A = \{hi, hello, world\}$ and $H = \{f: f: A\rightarrow \mathbb{Z}\}$. Let $f\in H$ be the length of the word in $A$. 
+For example, perhaps $H = \{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$, the set of functions which send an integer to an integer. Some elements of this space are $f(x) = x + 3$ and $f(x) = 3$. The only requirement for $f$ is that it is a function. For a more applicable example, let $A = \{\text{hi}, \text{hello}, \text{world}\}$, $H = \{f: f: A\rightarrow \mathbb{Z}\}$, and $f\in H$ s the length of the word in $A$. 
 
 \subsection{The examples}
 Given a domain $A$ and a codomain $B$, an \textbf{example} is a pair $(i, o)\in A \times B$. The \textbf{examples} are a set of examples $D$ i.e. $D \subseteq A \times B$. For instance, $(1,2) \in \mathbb{Z} \times \mathbb{Z}$, or using the previous set, $A = \{hi, hello, world\}$, an example: $(hi, 2) \in A \times \mathbb{Z}$
@@ -66,12 +66,12 @@ The hypothesis space provides a domain to work in, or a space of functions which
 
 
 \subsection{Version space algebras}
-Let $H$ be a hypothesis space with domain $A$ and codomain $B$ and examples $D \subseteq A \times B$. A \textbf{version space} $VS_{H,D} = \{f : f(i) = o \text{ for all } (i,o) \in D\}$, or the hypotheses in $H$ that are consistent with all examples in $D$. 
+Let $H$ be a hypothesis space with domain $A$ and codomain $B$, let $D \subseteq A \times B$ be a set of examples. The \textbf{version space} $VS_{H,D}$ is defined to be the hypotheses in $H$ that are consistent with all examples in $D$. Explictly, $VS_{H,D} = \{f : f(a) = b \text{ for all } (a,b) \in D\}$
 
-A version space is the set of the functions in the ambient space that are consistent with the examples. In practice the ambient space may be something like "words in our document", or "integers representing row and column numbers".  Version spaces are used to define all possible actions of a specific type, then constrained to the examples observed in the current document. This is used to generate predictions, where the examples we have used in our document are used to predict future actions.
+A version space is the set of the functions in the ambient space that are consistent with the examples. In practice the ambient space may be something like ``words in our document", or ``integers representing row and column numbers".  Version spaces are used to define all possible actions of a specific type, then constrained to the examples observed in the current document. This is used to generate predictions, where the examples we have used in our document are used to predict future actions.
 Following our above working example, $VS_{H,D} = \{f : f: \mathbb{Z} \rightarrow \mathbb{Z} \text{ and } f(1) = 2\}$
 
-Lau et al.\cite{short} introduces the idea of version space algebras (VSAs), that are version spaces generated by algebraic operations on other version spaces. A version space which is defined explicitly, or not defined in terms of operations on other version spaces, is called an \textbf{atomic version space}. From a set theory perspective there is no difference between a version space algebra and a version space, there is only a difference in how they are constructed. 
+Lau et al.\cite{short} introduces the idea of version space algebras (VSAs), which are version spaces generated by algebraic operations on other version spaces. A version space which is defined explicitly, or not defined in terms of operations on other version spaces, is called an \textbf{atomic version space}. From a set theory perspective there is no difference between a version space algebra and a version space, there is only a difference in how they are constructed. 
 
 \subsection{Algebraic operations on version spaces}
 There are three main operations defined on a version space. 
@@ -80,17 +80,17 @@ There are three main operations defined on a version space.
 \end{definition}
 
 \begin{definition}
-Let $A_1, A_2, B_1 $ and $B_2$ be sets, $H_1 \subseteq \{g : g: A_1 \rightarrow B_1\}$ and $H_2 \subseteq \{f: f: A_2 \rightarrow B_2\}$. Let $\tau_i: A_1 \rightarrow A_2$ be a function between the domains and $\tau_o:B_1 \rightarrow B_2$ be an invertible function between the codomains. Version space $VS_{H_1, D_1}$ is a \textbf{transform} of $VS_{H_2, D_2}$ if $VS_1 = \{g : \exists f \in VS_2, \forall i,  g(i) = \tau_o^{-1}(f(\tau_i(i)))\}$
+Let $A_1, A_2, B_1 $ and $B_2$ be sets, $H_1 \subseteq \{f : f: A_1 \rightarrow B_1\}$ and $H_2 \subseteq \{g: g: A_2 \rightarrow B_2\}$. Let $\tau_i: A_1 \rightarrow A_2$ be a function between the domains and $\tau_o:B_1 \rightarrow B_2$ be an invertible function between the codomains. Version space $VS_{H_1, D_1}$ is a \textbf{transform} of $VS_{H_2, D_2}$ if $VS_1 = \{g : \exists f \in VS_2, \forall i,  g(i) = \tau_o^{-1}(f(\tau_i(i)))\}$
 
-While not provided in \cite{short}, a transform can be represented the set of all $g:A_1 \rightarrow B_1$ for which there exists $f \in VS_2$ such that the diagram below commutes.
+While not provided in \cite{short}, a transform can be represented as the set of all $f:A_1 \rightarrow B_1$ for which there exists $g \in VS_2$ such that the diagram below commutes.
 
 \[\begin{tikzcd}
 	{A_1} & {B_1} \\
 	{A_2} & {B_2}
 	\arrow["{\tau_i}", from=1-1, to=2-1]
-	\arrow["g"', from=1-1, to=1-2]
+	\arrow["f"', from=1-1, to=1-2]
 	\arrow["{\tau_o}", to=2-2, from=1-2]
-	\arrow["f", from=2-1, to=2-2]
+	\arrow["g", from=2-1, to=2-2]
 \end{tikzcd}\]
 
 The original definition of a version space transform is part of what originally motivated the study of category theory. The definition can be represented as a commutative diagram which simplifies presentation. We were interested in studying what other aspects of version spaces can be simplified using category theory.
@@ -245,7 +245,7 @@ We next redefine version spaces in a categorical framework. To start, we make a 
 %In machine learning applications, we train the version space by adding pairs to the example set. 
 
 \subsection{Working example}
-It would be helpful to have a working example to discuss as we update our definitions. If one were trying to generate helpful predictions for a text editor (see SMARTEdit \cite{short}), one would need a set of operations to predict. For example, one may want to predict actions such as deletes text starting with a prefix, finding the next instance of a word, moving to the third row, or inserting this text. We will use the example of a function to move between rows as our working example. 
+It would be helpful to have a working example to discuss as we update our definitions. If one were trying to generate helpful predictions for a text editor (see SMARTEdit \cite{short}), one would need a set of operations to predict. For example, one may want to predict actions such as deleting text starting with a prefix, finding the next instance of a word, moving to the third row, or inserting this text. We will use the example of a function to move between rows as our working example. 
 
 We want the version space \textbf{Row} to represent jumping between rows in a text document. Initially our version space is going to contain all possible ways to jump between rows, but after training, it will represent only those jumps which have been completed while editing the document. 
 
@@ -255,9 +255,9 @@ Let $H = \{f: f: \mathbb{Z} \rightarrow \mathbb{Z}\}$. This represents all possi
 \subsection{Hypothesis spaces}
 We begin by defining the hypothesis space in categorical terms. By redefining the hypothesis space in categorical terms, we can define a version space transform as an arrow in a category instead of a separate set. 
 
-In categorical terms, the category of all set maps $f: A \rightarrow B$ denoted $\operatorname{Hom}(A,B)$. In this case the hypothesis space is a subset of $\operatorname{Hom}(A,B)$. 
+In categorical terms, the collection of all set maps $f: A \rightarrow B$ denoted $\operatorname{Hom}(A,B)$. In this case the hypothesis space is a subset of $\operatorname{Hom}(A,B)$. 
 
-The first step to defining the hypothesis space is defining the $hom(\cdot, \cdot)$ functor, which is used to model the functions of a hypothesis space. The $hom$ functor is not enough alone though, as it does not preserve $A$ and $B$. To do this, we will define $H$ first then move the construction of $H$ into a comma category.
+The first step to defining the hypothesis space is defining the $Hom(\cdot, \cdot)$ functor, which is used to model the functions of a hypothesis space. The $Hom$ functor is not enough alone though, as it does not preserve $A$ and $B$. To do this, we will define $H$ first then move the construction of $H$ into a comma category.
 
 \begin{definition}
 Define a functor $hom(\cdot,\cdot): \operatorname{Set^{op}} \times \operatorname{Set} \rightarrow \operatorname{Set}$ as follows. For a pair of sets $(A,B)$, let $Hom(A,B)$ denote the collection of set maps $f:A\rightarrow B$. As for arrows, first recall that an arrow $(u,v):(A_1, B_1) \rightarrow (A_2, B_2)$ in corresponds to a pair of set maps $u: A_2 \rightarrow A_1, v:B_1\rightarrow B_2$. Let $(u,v)^*: Hom(A_1,B_1) \rightarrow Hom(A_2,B_2)$ be the map that sends the function $f:A_1\rightarrow B_1$ to the function $g: A_2 \rightarrow B_2$ defined by $g=v \circ f \circ u$ This can be visualized by the commutative diagram below: 
@@ -341,20 +341,16 @@ In our working example, the \textbf{Row} version space corresponds to the object
 
 
 \subsection{The examples}
-Next is the examples. As we noted in the beginning of this section, we consider the set of examples to be equivalent to a function $g_D: A' \rightarrow B$ where $A' \subseteq A$.  Here there is a one-to-one correspondence between a set of examples $D$ and a function $g_D$ defined on a subset of the domain of the hypothesis space. 
-
-One of the difficulties in translating version space algebras to category theory is the notion of ``filtering", or checking the consistency of each function in $H$. 
+Next is the examples. As we noted in the beginning of this section, we consider the set of examples to be equivalent to a function $g_D: A' \rightarrow B$ where $A' \subseteq A$.  Here there is a one-to-one correspondence between a set of examples $D$ and a function $g_D$ defined on a subset of the domain of the hypothesis space. One of the difficulties in translating version space algebras to category theory is the notion of ``filtering", or checking the consistency of each function in $H$. 
 
 %Filtering is inherently not something category theory handles well as it is designed to study ``all" objects of a class.
-
-TODO: FINISH THIS SECTION AND FIX WORKING EXAMPLE
 
 In \textbf{Row}, an example would be the function $f: {1} \rightarrow \mathbb{Z}$. Examples are supposed to capture the information of jumping from one row to another. If we were to jump from the first row to the fifth, this would be the pair $(1,5)\in D$. Any function in $H$ that sends $1$ to $5$ would be consistent with this example, and remain in the version set. 
 
 For example, the function $f(x) = x + 4$ would be an element of our version space, and correspond to the action of "move down four lines" in the text editor, a reasonable prediction. 
 
 \subsection{Version spaces}
-To define a version space, we take only the functions in the hypothesis space that are consistent with our examples. We will construct the version space object as a pullback of two morphisms in $Set$. 
+To define a version space, we take only the functions in the hypothesis space that are consistent with our examples. Filtering is inherently not something category theory handles well, we will use a pullback with a single object category to attempt to filter the hypothesis space. We will construct the version space object as a pullback of two morphisms in $Set$. 
 
 We first recall the notion of a pullback in $Set$. Suppose $f:X\rightarrow Z$ and $g:Y\rightarrow Z$ are two set maps. The set of all pairs $(x,y \in X \times Y$ such that $f(x) = g(y)$ is called the pullback of $f$ and $g$ (or in Set, the fibered product of $f$ and $g$). We denote this result $X \times_Z Y$. Note that we have a commutative diagram: 
 
@@ -384,9 +380,8 @@ Now suppose $i:H \rightarrow Hom(A,B)$ is a hypothesis space, and $g_D: A\righta
 TODO: make this consistent with above. Finally, the pullback is: $VS_{H,D} = H\times_{Hom(A',B)} \{*\} \cong  \{f\in H : res_{A, A'}(f) = g_D\}$ 
 
 \subsection{Training}
-TODO: TRAINING
-
-Using the function definition of examples, training can be realized as in one of two ways. Training can be represented as expanding the example partial $g_D$ to a new partial function $g_{D'}$ where $D\subseteq D'$. This allows us to have only one example partial at a time. The other possibility is that the examples can be realized as a set $D$ of partial functions $g_{D_i}: A_i \rightarrow B $ where if $A_i \cap A_j \ne \emptyset$ then $g_i$ and $g_j$ must agree on $A_i \cap A_j$.
+Given a set of examples $D_1$, we represent training our version space by enlarging $D_1$, call this new set $D_2$ where $D_1 \subseteq D_2$. $g_{D_1}$
+Using the function definition of examples, training can be realized as in one of two ways. Training can be represented as expanding the example function $g_D$ to a new partial function $g_{D'}$ where $D\subseteq D'$. This allows us to have only one example partial at a time. The other possibility is that the examples can be realized as a set $D$ of partial functions $g_{D_i}: A_i \rightarrow B $ where if $A_i \cap A_j \ne \emptyset$ then $g_i$ and $g_j$ must agree on $A_i \cap A_j$.
 
 
 
